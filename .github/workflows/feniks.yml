@@ -41,7 +41,7 @@ jobs:
         run: python feniks_script.py
 
       - name: ZIP yuklash
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: markerovka-kodlar
           path: output/*.zip
