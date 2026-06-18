@@ -110,10 +110,22 @@ def main():
         page.goto(f"{BASE_URL}/Account/Login")
         page.wait_for_load_state("networkidle")
         
-        page.fill('input[name="UserName"], input[type="text"]', LOGIN)
-        page.fill('input[name="Password"], input[type="password"]', PAROL)
-        page.click('button[type="submit"], input[type="submit"]')
+        # Login formani to'ldirish
+        page.wait_for_selector('input[name="UserName"]', timeout=15000)
+        page.fill('input[name="UserName"]', LOGIN)
+        page.fill('input[name="Password"]', PAROL)
+        
+        # Login tugmasini bosish - bir necha usul
+        try:
+            page.click('.dx-button-submit-input', timeout=5000)
+        except:
+            try:
+                page.keyboard.press('Enter')
+            except:
+                page.evaluate("document.querySelector('form').submit()")
+        
         page.wait_for_load_state("networkidle")
+        page.wait_for_timeout(3000)
         print("Login muvaffaqiyatli!")
         
         # === 2. ОТГРУЗКА sahifasiga o'tish ===
